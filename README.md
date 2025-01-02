@@ -1,53 +1,16 @@
-# Copernicus Data Space Ecosystem: sample notebooks
+# Codes pour accéder aux données Copernicus
 
-This repository contains sample Jupyter notebooks for the Copernicus Data Space Ecosystem.
+```{bash}
+git clone https://github.com/rayaberova7/copernicus_data.git
+cd copernicus_data
+source ./setup.sh
+```
 
-Notebooks are grouped per kernel: `sentinelhub`, `openeo` and `geo`.
+## Images SENTINEL2
 
+Notebook sentinelhub/data_download_process_request.ipynb pour récupérer une image Sentinel2 incluse dans le polygone Europe (tracé à la main sur le bowser Copernicus) et l'enregistrer en tiff. L'image se composera de toutes les bandes, d'un filtre nuage qui va reconstruire une image à partir des images les moins nuages sur la fenêtre de temps demandée (ici 1er au 30 janvier 2023).
 
-## Contributor tips
+### Prérequis
 
-### Kernel spec metadata
-
-In case of editing the notebook samples outside the Copernicus Data Space Ecosystem Jupyter notebooks service, make 
-sure to update the kernel spec (`metadata.kernelspec.name`) before pushing, otherwise the sample will be loaded with the wrong kernel:
-* for Sentinelhub kernels, use `sentinelhub`
-* for OpenEO samples, use `openeo`
-* for generic Geo science kernels, use `geo`
-
-E.g. for OpenEO:
-
-    ...
-    "metadata": {
-      "kernelspec": {
-        "display_name": "OpenEO",
-        "language": "python",
-        "name": "openeo"
-      },
-    ...
-
-### Automated testing
-
-If you want your sample to be automatically tested, add it to the `.tests` file. A GitHub action will pull the
-Jupyterlab container and automatically test the listed notebook samples.
-
-Mind that in case of automated testing samples can't depend on interactive input, like specifying user credentials.
-
-### Pre-commit hook
-
-To ensure a consistent code style and formatting in this repository,
-we use the [the black code formatter](https://black.readthedocs.io/en/stable/).
-
-We recommend to set up a (git) pre-commit hook,
-to automatically run code checks and apply formatting tweaks before each commit.
-
--   [Install pre-commit](https://pre-commit.com/#installation) on your system,
-    for example directly in your development environment with
-
-        pip install pre-commit
-
--   Install the pre-commit git hook defined by the `.pre-commit-config.yaml` config of this repository:
-
-        pre-commit install
-
-The pre-commit hooks will now run automatically before each commit, checking the code for any style violations and automatically formatting it if needed.
+Il faut tout d'abord se créer un compte sur le [site Copernicus](https://dataspace.copernicus.eu/).
+Aller dans Your profile --> Dashboards --> Sentinel Hub --> User settings --> OAuth client --> Create et enregistrer l'identifiant et le secret. Ils seront demandés pour récupérer une image Sentinel.
